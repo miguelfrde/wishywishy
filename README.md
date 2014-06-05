@@ -5,6 +5,8 @@ Social wishlist
 
 ## Set up
 
+Install [MongoDB](http://docs.mongodb.org/manual/installation/)
+
 ```
 $ git clone https://github.com/miguelfrde/wishywishy.git
 $ bundle install
@@ -12,7 +14,9 @@ $ bundle install
 
 ## Run
 
-Recommended:
+First make sure that `mongod` is running.
+
+Then (recommended):
 
 ```
 $ rerun foreman start
@@ -20,6 +24,6 @@ $ rerun foreman start
 
 Other options:
 
-- `ruby app.rb`
-- `rerun ruby app.rb`
+- `rackup config.ru`
+- `rerun rackup config.ru`
 - `foreman start`
