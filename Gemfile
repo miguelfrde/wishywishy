@@ -1,11 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'data_mapper'
-
-group :production do
-  gem 'dm-postgres-adapter'
-end
+gem 'mongo_mapper'
+gem 'bson_ext'
 
 group :development do
   gem 'dm-sqlite-adapter'

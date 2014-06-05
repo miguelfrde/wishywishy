@@ -7,9 +7,6 @@ require_relative 'routes/init'
 require_relative 'helpers/init'
 require_relative 'models/init'
 
-DataMapper.setup(:default,
-  ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
-
 class WishyWishyApp < Sinatra::Base
   enable :method_override
   enable :sessions
@@ -17,6 +14,9 @@ class WishyWishyApp < Sinatra::Base
 
   configure do
     set :app_file, __FILE__
+    mongo_url = 'mongodb://localhost/wishywishy' || ENV['MONGOHQ_URL']
+    MongoMapper.connection = Mongo::Connection.from_uri mongo_url
+    MongoMapper.database = URI.parse(mongo_url).path.gsub(/^\//, '')
   end
 
   configure :development do
