@@ -1,0 +1,7 @@
+require_relative 'api/main'
+require_relative 'api/auth'
+require_relative 'api/events'
+require_relative 'api/friends'
+require_relative 'api/gifts'
+require_relative 'api/users'
+require_relative 'api/wishes'
