@@ -7,7 +7,7 @@ class WishyWishyApp < Sinatra::Base
     end
   end
 
-  get '/api' do
+  get %r{/api/?} do
     json :version => API_VERSION
   end
 end
