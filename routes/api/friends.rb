@@ -1,29 +1,16 @@
 class WishyWishyApp < Sinatra::Base
-  get '/api/friends' do
-
+  get '/api/groups/:group/friends' do
+    json @group.friends.only(:fbid)
   end
 
-  get '/api/friends/:friends_group' do
-
+  post '/api/groups/:group/friends/:friend_fbid' do
+    new_friend = User.where(fbid: params[:friend_fbid]).first
+    halt json_status, 404, 'Unknown user'
+    @group.friends << new_friend
+    json :success => true
   end
 
-  post '/api/friends/:group' do
-
-  end
-
-  put '/api/friends/:group' do
-
-  end
-
-  patch '/api/friends/:group' do
-
-  end
-
-  delete '/api/friends/:group' do
-
-  end
-
-  delete '/api/friends/:group/:friend' do
-
+  delete '/api/groups/:group/friends/:friend_fbid' do
+    @current_user.friends.delete_all(fbid: params[:friend_fbid])
   end
 end

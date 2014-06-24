@@ -2,20 +2,6 @@ require 'net/http'
 require 'json'
 
 class WishyWishyApp < Sinatra::Base
-  before %r{^/api/(\w+)} do
-    pass if params[:captures].first =~ /^auth/
-
-    token = request.env['HTTP_AUTHORIZATION']
-    token = JWT.decode(token, settings.token_secret) rescue nil
-    token = token[0] unless token.nil?
-
-    halt json_status 401, 'Invalid token' if token.nil?
-    halt json_status 401, 'Token has expired' if
-      Time.now > Time.at(token['expires'])
-
-    @id = token['fbid']
-  end
-
   post '/api/auth/:id' do
     tokenfb = params[:token]
     url = URI.parse("https://graph.facebook.com/me?access_token=#{tokenfb}")

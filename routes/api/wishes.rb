@@ -1,45 +1,40 @@
 class WishyWishyApp < Sinatra::Base
-  get '/api/wishes' do
-
+  before %r{/api/wishes/(\d+)} do
+    @wish = Item.find(params[:captures].first)
+    halt json_status 404, 'Unknown wish' if @wish.nil?
   end
 
-  get '/api/wishes/:wish_group' do
-
+  get '/api/wishes/:wish' do
+    json @wish
   end
 
-  get '/api/wishes/:wish_group/:wish' do
-
+  get '/api/groups/:group/wishes' do
+    json @group.wishes
   end
 
-  post '/api/wishes/' do
-
+  post '/api/wishes' do
+    halt json_status 400, 'Please provide a name' if params[:name].nil?
+    halt json_status 400, 'Please provide a group' if params[:group].nil?
+    group = Group.find(params[:group])
+    halt json_status 404, 'Unknown group' if group.nil?
+    wish = Item.create(
+      name: params[:name],
+      picked: false
+    )
+    wish.event = params[:event] unless params[:event].nil?
+    group.wishes << wish
+    # TODO: support pictures
+    json wish.only(:_id, :name)
   end
 
-  post '/api/wishes/:wish_group' do
-
+  put '/api/wishes/:wish' do
+    @wish.event = params[:event] unless params[:event].nil?
+    # TODO: support pictures
+    json :success => true
   end
 
-  put '/api/wishes/:wish_group' do
-
-  end
-
-  put '/api/wishes/:wish_group/:wish' do
-
-  end
-
-  patch '/api/wishes/:wish_group' do
-
-  end
-
-  patch '/api/wishes/:wish_group/:wish' do
-
-  end
-
-  delete '/api/wishes/:wish_group' do
-
-  end
-
-  delete '/api/wishes/:wish_group/:wish' do
-
+  delete '/api/wishes/:wish' do
+    @wish.delete
+    json :success => true
   end
 end
