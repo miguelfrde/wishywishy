@@ -14,9 +14,7 @@ class WishyWishyApp < Sinatra::Base
     set :app_file, __FILE__
     set :token_expire_days, 10
     set :token_secret, '3i#0hqc^rryl^bv$^cv0&z1s2%-=8)yv74_f@l#pgdwmsc_4p0'
-    mongo_url = 'mongodb://localhost/wishywishy' || ENV['MONGOHQ_URL']
-    MongoMapper.connection = Mongo::Connection.from_uri mongo_url
-    MongoMapper.database = URI.parse(mongo_url).path.gsub(/^\//, '')
+    Mongoid.load!('config/mongoid.yml', :development)
   end
 
   configure :development do

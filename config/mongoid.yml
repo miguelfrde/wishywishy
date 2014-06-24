@@ -1,0 +1,8 @@
+development:
+  sessions:
+    default:
+      uri: mongodb://localhost/wishywishy
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
