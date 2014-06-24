@@ -8,9 +8,8 @@ class WishyWishyApp < Sinatra::Base
 
   post '/api/user' do
     halt json_status 400, 'User already exists' unless @current_user.nil?
-    general_group = Group.create(name: 'General')
     new_user = User.create(events: [], fbid: @id)
-    new_user.groups << new_group
-    json :success => true
+    new_user.groups << Group.create(name: 'General')
+    json new_user
   end
 end
