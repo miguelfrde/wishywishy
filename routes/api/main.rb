@@ -22,11 +22,11 @@ class WishyWishyApp < Sinatra::Base
   end
 
   before %r{/api/groups/(\d+)/?(.*)} do
-    @group = @current_user.groups.find(params[:captures].first)
+    @group = @current_user.groups.find(params[:captures][0]) rescue nil
     halt json_status 404, 'Unknown group' if @group.nil?
   end
 
-  get %r{/api/?} do
+  get %r{/api/?$} do
     json :version => API_VERSION
   end
 end
