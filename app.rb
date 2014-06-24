@@ -4,9 +4,10 @@ require 'sinatra'
 require 'sinatra/json'
 Bundler.require
 
-API_VERSION = '1.0'
 
 class WishyWishyApp < Sinatra::Base
+  API_VERSION = '1.0'
+
   configure do
     # enable :sessions
     # set :session_secret, '*m!e-ypsgr)p#v+bnc#cq1b_=q5_v-cx2!rer$-wyrqmv0&syr'
@@ -14,6 +15,7 @@ class WishyWishyApp < Sinatra::Base
     set :app_file, __FILE__
     set :token_expire_days, 10
     set :token_secret, '3i#0hqc^rryl^bv$^cv0&z1s2%-=8)yv74_f@l#pgdwmsc_4p0'
+    I18n.config.enforce_available_locales = true
     Mongoid.load!('config/mongoid.yml', :development)
   end
 
