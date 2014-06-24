@@ -14,16 +14,18 @@ $ bundle install
 
 ## Run
 
-First make sure that `mongod` is running.
+First make sure that `mongod` is running on localhost.
 
 Then (recommended):
 
 ```
-$ rerun foreman start
+$ rake
 ```
 
 Other options:
 
+- `rake serve`
+- `rerun foreman start`
 - `rackup config.ru`
 - `rerun rackup config.ru`
 - `foreman start`
