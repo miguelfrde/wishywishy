@@ -21,7 +21,7 @@ class WishyWishyApp < Sinatra::Base
     @current_user = User.where(fbid: @id).first
   end
 
-  before %r{/api/groups/(\d+)/?(.*)} do
+  before %r{/api/groups/([0-9a-f]+)/?(.*)} do
     @group = @current_user.groups.find(params[:captures][0]) rescue nil
     halt json_status 404, 'Unknown group' if @group.nil?
   end
