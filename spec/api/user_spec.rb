@@ -11,14 +11,14 @@ describe 'Users' do
 
       it 'returns the created user in JSON format' do
         result = JSON.parse(last_response.body)
-        expect(result['fbid']).to eq('1')
+        expect(result['fbid']).to eq '1'
       end
     end
 
     it "fails when the user doesn't exist" do
         get '/api/user/2', {}, @request_headers
-        expect(last_response.status).to eq(404)
-        expect(JSON.parse(last_response.body)['message']).to eq('User not found')
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)['message']).to eq 'User not found'
     end
   end
 
@@ -36,8 +36,8 @@ describe 'Users' do
       it 'creates a user with a General group' do
         result = JSON.parse(last_response.body)
         expect(User.find(result['_id'])).not_to be_nil
-        expect(User.find(result['_id']).fbid).to eq('2')
-        expect(User.find(result['_id']).groups[0].name).to eq('General')
+        expect(User.find(result['_id']).fbid).to eq '2'
+        expect(User.find(result['_id']).groups[0].name).to eq 'General'
       end
     end
 
@@ -46,8 +46,8 @@ describe 'Users' do
       allow(User).to receive(:where).and_return(dbl)
       allow(dbl).to receive(:first).and_return(dbl)
       post '/api/user', {}, @request_headers
-      expect(last_response.status).to eq(400)
-      expect(JSON.parse(last_response.body)['message']).to eq('User already exists')
+      expect(last_response.status).to eq 400
+      expect(JSON.parse(last_response.body)['message']).to eq 'User already exists'
     end
   end
 end
