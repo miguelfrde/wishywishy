@@ -1,7 +1,8 @@
 require 'rack/test'
-require 'database_cleaner'
 
 require_relative '../app.rb'
+
+Bundler.require :test
 
 ENV['RACK_ENV'] = 'test'
 
@@ -12,6 +13,7 @@ end
 
 RSpec.configure do |config|
   config.include RSpecMixin
+  config.include FactoryGirl::Syntax::Methods
 
   config.before :suite do
     if `ps -eaf | grep mongo` !~ /mongod/
@@ -24,8 +26,8 @@ RSpec.configure do |config|
 
   config.before :each do
     DatabaseCleaner.start
-    user = User.create(events: [], fbid: '1')
-    user.groups << Group.new(name: 'General')
+    @user = User.create(events: [], fbid: '1')
+    @user.groups << Group.new(name: 'General')
     token = generate_token(1)
     @request_headers = {'HTTP_AUTHORIZATION' => token}
   end
@@ -41,3 +43,5 @@ RSpec.configure do |config|
       }, app().settings.token_secret)
   end
 end
+
+FactoryGirl.find_definitions

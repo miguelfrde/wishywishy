@@ -30,6 +30,8 @@ GEM
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
     dotenv (0.7.0)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
     ffi (1.9.3)
     foreman (0.67.0)
       dotenv (~> 0.7.0)
@@ -93,6 +95,7 @@ DEPENDENCIES
   bson_ext
   database_cleaner
   dm-sqlite-adapter
+  factory_girl
   foreman
   jwt
   mongoid
