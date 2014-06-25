@@ -1,3 +1,5 @@
+require_relative '../spec_helper'
+
 describe 'Users' do
   describe :GET do
     describe 'when the requested user exists' do

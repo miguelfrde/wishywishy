@@ -1,3 +1,5 @@
+require_relative '../spec_helper'
+
 describe 'Main' do
   describe 'All routes' do
     it "fail if the given token has expired" do
