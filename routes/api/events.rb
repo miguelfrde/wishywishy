@@ -1,6 +1,6 @@
 class WishyWishyApp < Sinatra::Base
-  def event_by_id
-    event = @current_user.events.find(params[:event]) rescue nil
+  def event_by_id(id)
+    event = @current_user.events.find(id) rescue nil
     halt json_status 404, 'Unkown event' if event.nil?
     event
   end
@@ -16,19 +16,22 @@ class WishyWishyApp < Sinatra::Base
 
   post '/api/event' do
     halt json_status 400, 'No name provided' if params[:name].nil?
-    new_event = Event.create(name: params[:name])
+    halt json_status 400, 'Event already exists' unless
+      @current_user.events.where(name: params[:name]).first.nil?
+    new_event = Event.new(name: params[:name])
     @current_user.events << new_event
-    json new_event.only(:_id, :name)
+    json new_event
   end
 
   put '/api/event/:event' do
     halt json_status 400, 'No name prvided' if params[:name].nil?
+    halt json_status 400, 'Event already exists' unless
+      @current_user.events.where(name: params[:name]).first.nil?
     event = event_by_id(params[:event])
     event.update_attributes(name: params[:name])
   end
 
   delete '/api/event/:event' do
-    halt json_status 400, 'No name prvided' if params[:name].nil?
     event = event_by_id(params[:event])
     event.delete
   end
