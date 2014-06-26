@@ -8,7 +8,7 @@ describe 'API Authentication' do
     allow(Time).to receive(:now).and_return(@time)
   end
 
-  describe 'when the request is successful' do
+  context 'when the request is successful' do
     before :each do
       post '/api/auth/12345', :token => @fake_token
       @token = last_response.headers['Authorization']
@@ -30,18 +30,20 @@ describe 'API Authentication' do
     end
   end
 
-  it "returns an error if the id in the url doesn't match" do
-    post '/api/auth/99999', :token => @fake_token
-    error_msg = "The provided token doesn't belong to the user"
-    expect(last_response.status).to eq 401
-    expect(JSON.parse(last_response.body)['message']).to eq error_msg
-  end
+  context 'when the request is unsuccessful' do
+    it "returns an error if the id in the url doesn't match" do
+      post '/api/auth/99999', :token => @fake_token
+      error_msg = "The provided token doesn't belong to the user"
+      expect(last_response.status).to eq 401
+      expect(JSON.parse(last_response.body)['message']).to eq error_msg
+    end
 
-  it "returns the Facebook API error if Facebook API returns one" do
-    fb_error = {:error => {:message => 'some error'}}
-    allow(Net::HTTP).to receive(:get).and_return(JSON.dump(fb_error))
-    post '/api/auth/12345', :token => @fake_token
-    expect(last_response.status).to eq 401
-    expect(JSON.parse(last_response.body)['message']).to eq fb_error[:error][:message]
+    it "returns the Facebook API error if Facebook API returns one" do
+      fb_error = {:error => {:message => 'some error'}}
+      allow(Net::HTTP).to receive(:get).and_return(JSON.dump(fb_error))
+      post '/api/auth/12345', :token => @fake_token
+      expect(last_response.status).to eq 401
+      expect(JSON.parse(last_response.body)['message']).to eq fb_error[:error][:message]
+    end
   end
 end
