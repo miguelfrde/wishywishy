@@ -5,4 +5,12 @@ development:
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: mongodb://squaredwishy:squaredwishy@kahana.mongohq.com:10021/wishywishy
+localtest:
+  sessions:
+    default:
+      uri: mongodb://localhost/wishywishytest
+remotetest:
+  sessions:
+    default:
+      uri: mongodb://tester:tester@kahana.mongohq.com:10022/wishywishytest

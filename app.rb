@@ -4,7 +4,6 @@ require 'sinatra'
 require 'sinatra/json'
 Bundler.require
 
-
 class WishyWishyApp < Sinatra::Base
   API_VERSION = '1.0'
 
@@ -16,18 +15,31 @@ class WishyWishyApp < Sinatra::Base
     set :token_expire_days, 10
     set :token_secret, '3i#0hqc^rryl^bv$^cv0&z1s2%-=8)yv74_f@l#pgdwmsc_4p0'
     I18n.config.enforce_available_locales = true
-    Mongoid.load!('config/mongoid.yml', :development)
   end
 
   configure :development do
     enable :logging, :dump_errors, :raise_errors
     set :force_ssl, false
+    Mongoid.load!('config/mongoid.yml', :development)
   end
 
   configure :production do
     set :raise_errors, false
     set :show_exceptions, false
     set :force_ssl, true
+    Mongoid.load!('config/mongoid.yml', :production)
+  end
+
+  configure :localtest do
+    enable :logging, :dump_errors, :raise_errors
+    set :force_ssl, false
+    Mongoid.load!('config/mongoid.yml', :localtest)
+  end
+
+  configure :remotetest do
+    enable :logging, :raise_errors
+    set :force_ssl, false
+    Mongoid.load!('config/mongoid.yml', :remotetest)
   end
 end
 

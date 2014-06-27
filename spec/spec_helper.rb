@@ -4,8 +4,6 @@ require_relative '../app.rb'
 
 Bundler.require :test
 
-ENV['RACK_ENV'] = 'test'
-
 module RSpecMixin
   include Rack::Test::Methods
   def app() WishyWishyApp end
@@ -17,7 +15,7 @@ RSpec.configure do |config|
   config.alias_it_should_behave_like_to :it_checks_for, 'checks for'
 
   config.before :suite do
-    if `ps -eaf | grep mongo` !~ /mongod/
+    if ENV['RACK_ENV'] == 'localtest' && `ps -eaf | grep mongo` !~ /mongod/
       $stderr.puts "\e[0;31mERROR: mongod is not running. Please start it!\e[0m"
       exit
     end
