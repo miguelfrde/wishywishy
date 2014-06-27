@@ -29,3 +29,9 @@ Other options:
 - `rackup config.ru`
 - `rerun rackup config.ru`
 - `foreman start`
+
+## Testing
+
+- `rake spec` runs specs using a local MongoDB instance
+
+- `rake spec:remote` runs specs using a remote MongoDB instance
