@@ -18,7 +18,7 @@ describe 'API Authentication' do
       expect(last_response).to be_ok
     end
 
-    it 'returns something in the Authorization header' do
+    it 'returns a token in the Authorization header' do
       expect(@token).not_to be_nil
     end
 
