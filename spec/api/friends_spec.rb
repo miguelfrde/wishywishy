@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 describe 'Friends' do
   before do
     @general_group = @user.groups.where(name: 'General').first
-    @friend = build(:user)
+    @friend = FactoryGirl.build(:user)
     @general_group.friends << @friend
   end
 
