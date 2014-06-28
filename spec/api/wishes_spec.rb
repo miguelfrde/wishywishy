@@ -13,8 +13,9 @@ describe 'Wishes' do
       expect(last_response).to be_ok
       result = JSON.parse(last_response.body)
       expect(result.size).to eq 2
-      expect(result[0]['_id']).to eq "#{@wish1.id}"
-      expect(result[1]['_id']).to eq "#{@wish2.id}"
+      result_ids = result.map{ |w| w['_id'] }
+      expect(result_ids).to include "#{@wish1.id}"
+      expect(result_ids).to include "#{@wish2.id}"
     end
   end
 
