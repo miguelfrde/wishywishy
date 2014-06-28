@@ -4,7 +4,6 @@ class WishyWishyApp < Sinatra::Base
   end
 
   get '/api/groups/:group' do
-    @group.wishes << Item.create(name: 'Test item')
     json @group
   end
 
