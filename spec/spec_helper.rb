@@ -12,7 +12,6 @@ end
 RSpec.configure do |config|
   config.include RSpecMixin
   config.include FactoryGirl::Syntax::Methods
-  config.alias_it_should_behave_like_to :it_checks_for, 'checks for'
 
   config.before :suite do
     if ENV['RACK_ENV'] == 'localtest' && `ps -eaf | grep mongo` !~ /mongod/
