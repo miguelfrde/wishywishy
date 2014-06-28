@@ -1,15 +1,6 @@
 require_relative '../spec_helper'
 
 describe 'Events' do
-  shared_examples_for 'event existance' do
-    it "fails if the given id isn't associated to any event" do
-      get '/api/event/666', {}, @request_headers
-      expect(last_response).not_to be_ok
-      expect(last_response.status).to eq 404
-      expect(JSON.parse(last_response.body)['message']).to eq 'Unkown event'
-    end
-  end
-
   before do
     @event1 = Event.new(name: 'Event one')
     @event2 = Event.new(name: 'Event two')
@@ -35,7 +26,14 @@ describe 'Events' do
   end
 
   describe :GET do
-    it_checks_for 'event existance'
+    context "when the event doesn't exist" do
+      it "fails" do
+        get '/api/event/666', {}, @request_headers
+        expect(last_response).not_to be_ok
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)['message']).to eq 'Unkown event'
+      end
+    end
 
     context 'when the event exists' do
       before do
@@ -96,7 +94,14 @@ describe 'Events' do
   end
 
   describe :PUT do
-    it_checks_for 'event existance'
+    context "when the event doesn't exist" do
+      it "fails" do
+        put '/api/event/666', {name: 'Fail'}, @request_headers
+        expect(last_response).not_to be_ok
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)['message']).to eq 'Unkown event'
+      end
+    end
 
     context 'when the params are not provided as expected' do
       it 'fails when the name is not provided' do
@@ -131,10 +136,17 @@ describe 'Events' do
   end
 
   describe :DELETE do
-    it_checks_for 'event existance'
+    context "when the event doesn't exist" do
+      it "fails" do
+        delete '/api/event/666', {}, @request_headers
+        expect(last_response).not_to be_ok
+        expect(last_response.status).to eq 404
+        expect(JSON.parse(last_response.body)['message']).to eq 'Unkown event'
+      end
+    end
 
     before do
-      delete "/api/event/#{@event1.id}"
+      delete "/api/event/#{@event1.id}", {}, @request_headers
     end
 
     it 'deletes the given event' do
