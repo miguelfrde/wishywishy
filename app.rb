@@ -26,7 +26,7 @@ class WishyWishyApp < Sinatra::Base
   configure :production do
     set :raise_errors, false
     set :show_exceptions, false
-    set :force_ssl, true
+    set :force_ssl, false # TODO: set up SSL in Heroku
     Mongoid.load!('config/mongoid.yml', :production)
   end
 
