@@ -17,7 +17,7 @@ describe 'Events' do
     @user.events << @event2
   end
 
-  describe :GET_ALL do
+  describe 'GET ALL' do
     before do
       get '/api/events', {}, @request_headers
     end
@@ -34,7 +34,7 @@ describe 'Events' do
     end
   end
 
-  describe :GET_ONE do
+  describe :GET do
     it_checks_for 'event existance'
 
     context 'when the event exists' do
@@ -100,14 +100,14 @@ describe 'Events' do
 
     context 'when the params are not provided as expected' do
       it 'fails when the name is not provided' do
-        post '/api/event', {}, @request_headers
+        put "/api/event/#{@event1.id}", {}, @request_headers
         expect(last_response).not_to be_ok
         expect(last_response.status).to eq 400
         expect(JSON.parse(last_response.body)['message']).to eq 'No name provided'
       end
 
       it "fails when there's an event with the same name" do
-        post '/api/event', {:name => 'Event one'}, @request_headers
+        put "/api/event/#{@event1.id}", {:name => 'Event one'}, @request_headers
         expect(last_response).not_to be_ok
         expect(last_response.status).to eq 400
         expect(JSON.parse(last_response.body)['message']).to eq 'Event already exists'

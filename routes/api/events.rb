@@ -24,7 +24,7 @@ class WishyWishyApp < Sinatra::Base
   end
 
   put '/api/event/:event' do
-    halt json_status 400, 'No name prvided' if params[:name].nil?
+    halt json_status 400, 'No name provided' if params[:name].nil?
     halt json_status 400, 'Event already exists' unless
       @current_user.events.where(name: params[:name]).first.nil?
     event = event_by_id(params[:event])
