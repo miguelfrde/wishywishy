@@ -1,0 +1,64 @@
+html {
+  font-size: 20px;
+  width:100%;
+  height:100%;
+}
+
+body {
+  background-color: #e1daca;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Lato', sans-serif;
+  color: #5d5351;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 2.5rem;
+}
+
+#main {
+  height: 75%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #main {
+    width: 80%;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #main {
+    width: 800px;
+  }
+
+  h1 {
+    font-size: 2.75rem;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #main {
+    width: 800px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+}

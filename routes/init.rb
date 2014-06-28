@@ -1,3 +1,4 @@
+require_relative 'main'
 require_relative 'api/main'
 require_relative 'api/auth'
 require_relative 'api/events'
