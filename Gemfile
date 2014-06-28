@@ -5,6 +5,7 @@ gem 'sinatra-contrib'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'jwt'
+gem 'rspec'
 
 group :development do
   gem 'foreman'
@@ -12,7 +13,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec'
   gem 'database_cleaner'
   gem 'factory_girl'
 end
