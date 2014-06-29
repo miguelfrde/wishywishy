@@ -34,4 +34,4 @@ Other options:
 
 - `rake spec` runs specs using a local MongoDB instance
 
-- `rake spec:remote` runs specs using a remote MongoDB instance
+- `rake spec:remote` runs specs using a remote MongoDB instance. Useful to test on production: `heroku run rake spec:remote`
