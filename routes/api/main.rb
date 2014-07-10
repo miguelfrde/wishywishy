@@ -26,8 +26,11 @@ class WishyWishyApp < Sinatra::Base
     halt json_status 404, 'Unknown group' if @group.nil?
   end
 
-  after %r{/api.*} do
-    halt json_status 404, 'Route not found' if response.status == 404
+  not_found do
+    if %r{^/api}
+      error = JSON.parse(response.body[0]) rescue nil
+      halt json_status 404, 'Route not found' unless error['message']
+    end
   end
 
   get %r{/api/?$} do
