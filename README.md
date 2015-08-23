@@ -1,7 +1,7 @@
 wishywishy
 ==========
 
-Social wishlist
+Social wishlist. This was developed as part of a course, but since we didn't continue with the project, now we open source it because it can be a nice example of a Sinatra REST API.
 
 ## Set up
 
